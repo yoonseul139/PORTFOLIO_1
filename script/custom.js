@@ -95,11 +95,34 @@ gsap.to(listC, {
 });
 
 // 모달
+// 모달
 $(function () {
-  $(".modalBox li").on("click", function () {
+  // 1. 모달 열기 (artworks li 클릭 이벤트)
+  $(".artworks ul li").on("click", function () {
     let i = $(this).index();
+
+    // 1-1. 모달창 전체 활성화
     $(".modal").addClass("on");
+
+    // 1-2. 모달 내의 모든 li 숨김 처리
     $(".modalBox li").removeClass("on");
-    $(".modalBox li").eq(i).addclass("on");
+
+    // 1-3. 클릭된 li에 해당하는 모달 li만 표시 (addClass 오타 수정)
+    $(".modalBox li").eq(i).addClass("on");
+  });
+
+  // 2. 모달 닫기 (클래스: .closeModal 버튼 클릭 시)
+  $(".closeModal").on("click", function () {
+    $(".modal").removeClass("on");
+  });
+
+  // 3. 모달 닫기 (모달 배경 클릭 시)
+  // 모달 오버레이(`.modal`) 자체를 클릭했을 때만 닫히도록 조건을 추가
+  $(".modal").on("click", function (e) {
+    // e.target은 실제로 클릭된 요소를 의미합니다.
+    // 클릭된 요소가 모달(배경) 자체일 때만 닫습니다.
+    if ($(e.target).hasClass("modal")) {
+      $(this).removeClass("on");
+    }
   });
 });

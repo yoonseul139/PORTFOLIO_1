@@ -363,23 +363,38 @@ section {
   transform: rotate(8deg);
 }
 
-/* 모달 */
+/* 모달창 */
 .modal {
   width: 100%;
   height: 100vh;
-  position: absolute;
+  /* position: fixed로 변경하여 스크롤에 영향을 받지 않게 함 */
+  position: fixed;
   left: 0;
   top: 0;
   background-color: rgba(0, 0, 0, 0.3);
-  display: none;
+  display: none; /* 초기에는 숨김 */
+  z-index: 9999;
 }
 .modal.on {
   display: block;
 }
+.closeModal {
+  position: absolute;
+  right: 30px;
+  top: 30px;
+  z-index: 10000; /* 모달 박스보다 위에 보이게 */
+  width: 40px;
+  height: 40px;
+  font-size: 24px;
+  color: white;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
 .modalBox {
-  width: 50%;
+  width: 70%;
   height: 70%;
-  background-color: yellow;
   position: absolute;
   left: 50%;
   top: 50%;
@@ -392,17 +407,19 @@ section {
   position: absolute;
   left: 0;
   top: 0;
-  display: none;
+  display: none; /* 평소에는 숨김 */
 }
 
-.modalBox li:nth-child(1) {
+/* JS에서 .on 클래스가 추가되면 해당 li만 보이도록 설정 (필수!) */
+.modalBox li.on {
   display: block;
 }
 
 .modalBox li img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  /* 이미지가 박스 안에 맞춰지도록 object-fit 변경 */
+  object-fit: contain;
 }
 
 /*-------------------------------------------*/
@@ -417,114 +434,4 @@ footer {
   align-items: center;
   font-family: "Work Sans", sans-serif;
   overflow-x: hidden;
-}
-
-/*wrap*/
-#wrap {
-  width: 100%;
-  height: 100vh;
-
-  /* background-image: url();
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: cover; 
-
-  4개를 통합한것이 background: url(../img/bg.jpg) no-repeat center / cover; (cover는 뒤에 따로)
-  */
-
-  background: url(../img/bg.jpg) no-repeat center / cover;
-  display: flex;
-}
-.left {
-  width: 30%;
-}
-.left h1 {
-  text-align: center;
-  position: absolute;
-  top: 200px;
-  left: 100px;
-}
-.left strong {
-  font-size: 1rem;
-  font-family: "Noto Serif", serif;
-}
-.left img {
-  width: 170px;
-}
-
-.left .txt {
-  font-size: 2rem;
-
-  position: absolute;
-  left: 100px;
-  top: 400px;
-  font-family: "Noto Serif", serif;
-}
-.txt span {
-  color: #64492b;
-}
-
-/*right*/
-.right {
-  width: 70%;
-  display: flex;
-  justify-content: flex-end;
-}
-.right li {
-  width: 15%;
-  position: relative;
-  color: #fff;
-  background: url(../img/divider.png) no-repeat left center;
-} /*세로선 위치 left center인 이유 : 모니터가 너무 클 때 박스의 왼쪽라인, 중앙에 배치되게*/
-/*포토샵에서 세로선 만들 때는 애초에 원하는 사이즈의 도화지를 꺼내서 작업해야 됨*/
-/*예를 들면 (두께)3 x (높이)1080짜리 도화지 꺼내기 */
-.right video {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  opacity: 0;
-  position: absolute;
-  left: 0px;
-  top: 0px;
-}
-.right h2 {
-  position: absolute;
-  left: 10px;
-  top: 30%;
-  z-index: 10;
-  color: #64492b;
-  font-weight: normal;
-  /* border-left: 3px solid #888;
-  padding-left: 1rem; */
-}
-.right h3 {
-  position: absolute;
-  right: -100px;
-  top: 50%;
-  opacity: 0;
-}
-.right p {
-  position: absolute;
-  right: -100px;
-  bottom: 100px;
-  text-align: right;
-  opacity: 0;
-}
-
-/*footer*/
-footer {
-  width: 100%;
-  position: fixed;
-  left: 0px;
-  bottom: 0px;
-  display: flex;
-  justify-content: space-between;
-  background-color: rgba(0, 0, 0, 0.5);
-  padding: 1rem;
-  box-sizing: border-box;
-  color: #fff;
-}
-footer ul {
-  display: flex;
-  gap: 20px;
 }
